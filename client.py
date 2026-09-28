@@ -53,6 +53,16 @@ async def main() -> None:
 
             print("\nEmpty path result:")
             print(invalid_result.content)
+            
+            try:
+                unknown_resource = await session.read_resource(
+                    "workspace://not-registered"
+                )
+                print("\nUnknown resource result:")
+                print(unknown_resource.contents)
+            except Exception as error:
+                print("\nUnknown resource error:")
+                print(type(error).__name__, str(error))
     
     
 
