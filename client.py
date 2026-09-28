@@ -17,6 +17,17 @@ async def main() -> None:
         async with ClientSession(read_stream, write_stream) as session:
             # MCP 要求先完成初始化握手，再调用 tools/list 或 tools/call。
             await session.initialize()
+            
+            resources_result = await session.list_resources()
+            
+            print("\nDiscovered resources:")
+            for resource in resources_result.resources:
+                print(f"- {resource.uri}: {resource.name}")
+
+            resource_result = await session.read_resource("workspace://project-info")
+
+            print("\nResource result:")
+            print(resource_result.contents)
 
             # 阶段一：发现 Server 暴露的工具。
             tools_result = await session.list_tools()

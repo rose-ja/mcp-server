@@ -12,6 +12,11 @@ def describe_path(path: str) -> str:
 
     return f"received path: {normalized_path}"
 
+@mcp.resource("workspace://project-info")
+def project_info() -> str:
+    """返回固定的项目说明。"""
+    return "This is a learning MCP server with one tool and one resource."
+
 if __name__ == "__main__":
     # stdio 模式下，协议消息通过标准输入输出传输。
     # 不要在这里使用 print 输出调试信息，否则可能污染 MCP 协议流。
